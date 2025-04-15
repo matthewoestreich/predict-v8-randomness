@@ -49,11 +49,11 @@ export default class PredictV8Randomness {
 	private doubleToUInt64(value: number): bigint {
 		const float64 = Buffer.alloc(8);
 		float64.writeDoubleLE(value, 0);
-		return (BigInt(float64.readUInt32LE(4)) << 32n) | BigInt(float64.readUInt32LE(0));
+		return (BigInt(float64.readUInt32LE(4)) << BigInt(32)) | BigInt(float64.readUInt32LE(0));
 	}
 
   private toDouble(n: bigint): number {
-		const random = (n >> 12n) | 0x3ff0000000000000n;
+		const random = (n >> BigInt(12)) | BigInt(0x3ff0000000000000);
 		const buffer = Buffer.allocUnsafe(8);
 		buffer.writeBigUInt64LE(random, 0);
 		return buffer.readDoubleLE(0) - 1;
@@ -80,7 +80,7 @@ export default class PredictV8Randomness {
 		for (let i = 0; i < this.internalSequence.length; i++) {
 			this.xorShift128Plus(this.seState0, this.seState1);
 			const uint64 = this.doubleToUInt64(this.internalSequence[i] + 1);
-			const mantissa = uint64 & ((1n << 52n) - 1n);
+			const mantissa = uint64 & ((BigInt(1) << BigInt(52)) - BigInt(1));
 			this.solver.add(this.seState0.lshr(12).eq(this.context.BitVec.val(mantissa, 64)));
 		}
 

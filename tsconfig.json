@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
+    "lib": ["es5"],
     "outDir": "./dist/cjs",  // Compiled output will go to the root-level bin folder
     "rootDir": "./src",  // Root directory for source files (includes both bin and lib)
     "esModuleInterop": true,
