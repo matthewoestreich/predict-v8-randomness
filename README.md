@@ -132,7 +132,7 @@ https://github.com/user-attachments/assets/a80ce0d6-2c60-40c9-b7b2-2afa4bdde508
 
 ### Provide Your Own Seed Sequence
 
-https://github.com/user-attachments/assets/05527da9-89c0-4d81-afff-4665c60b6691
+https://github.com/user-attachments/assets/521b69d9-672f-43b9-ab09-6b968c361668
 
 ## CLI Demos
 
