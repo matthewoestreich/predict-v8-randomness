@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "baseUrl": "./",  // Use base URL from the root of src
+    "paths": {
+      "@lib/*": ["lib/*"],  // Allow imports from lib using @lib/
+      "@bin/*": ["bin/*"]   // Optionally allow imports from bin using @bin/
+    }
+  }
+}

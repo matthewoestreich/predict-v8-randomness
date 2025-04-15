@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "target": "ES2015",
     "module": "CommonJS",
@@ -7,14 +8,6 @@
     "allowJs": true,
     "outDir": "./dist/cjs",  // Compiled output will go to the root-level bin folder
     "rootDir": "./src",  // Root directory for source files (includes both bin and lib)
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "baseUrl": "./",  // Use base URL from the root of src
-    "paths": {
-      "@lib/*": ["lib/*"],  // Allow imports from lib using @lib/
-      "@bin/*": ["bin/*"]   // Optionally allow imports from bin using @bin/
-    }
   },
   "include": [
     "src/bin/**/*",  // Include all files from src/bin
