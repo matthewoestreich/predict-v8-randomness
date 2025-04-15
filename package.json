@@ -32,6 +32,14 @@
     "symbolic-execution",
     "smt"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthewoestreich/predict-v8-randomness.git"
+  },
+  "homepage": "https://github.com/matthewoestreich/predict-v8-randomness#readme",
+  "bugs": {
+    "url": "https://github.com/matthewoestreich/predict-v8-randomness/issues"
+  },
   "author": "Matthew Oestreich",
   "license": "MIT",
   "dependencies": {
