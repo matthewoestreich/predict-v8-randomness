@@ -2,7 +2,7 @@
 
 A huge shout-out to [PwnFunction](https://github.com/PwnFunction/v8-randomness-predictor) for the inspiration!
 
-`predict-v8-randomness` uses [`z3`](https://github.com/Z3Prover/z3) to predict the output of `Math.random()` in [V8](https://v8.dev/) (the JS engine that Chrome/NodeJS use) via Node or CLI.
+`predict-v8-randomness` uses [`z3`](https://github.com/Z3Prover/z3), which is a [satisfiability modulo theories](https://en.wikipedia.org/wiki/Satisfiability_modulo_theories) (SMT) solver developed by Microsoft, to predict the output of `Math.random()` in [V8](https://v8.dev/), which is the JS engine that Chrome/NodeJS use, from Node or from CLI
 
 # TLDR
 
