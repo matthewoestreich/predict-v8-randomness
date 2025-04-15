@@ -45,11 +45,25 @@ const predictCommand: CommandModule = {
       });
   },
   // @ts-ignore
-  handler: (argv: PredictArgs) => {
+  handler: async (argv: PredictArgs) => {
     if (argv.seeds) {
-      console.log(`Collecting ${argv.seeds} seed values and predicting ${argv.predictions} future numbers...`);
+      const dynamicPredictor = new Predictor(argv.seeds);
+      const predictions = await dynamicPredictor.predictFuture(argv.predictions);
+      const actual = Array.from({ length: argv.predictions }, Math.random);
+      console.log({
+        generatedSequence: dynamicPredictor.sequence,
+        predictions,
+        actual,
+        isCorrect: predictions.every((e, i) => actual[i] === e)
+      });
     } else if (argv.sequence) {
-      console.log(`Using sequence [${argv.sequence.join("")}] and predicting ${argv.predictions} future numbers...`);
+      const userPredictor = new Predictor(argv.sequence);
+      const future = await userPredictor.predictFuture(argv.predictions);
+      console.log({
+        sequence: userPredictor.sequence,
+        predictions: future,
+        actual: "You'll need to get this yourself via the same way you generated the sequence"
+      });
     } else {
       console.log('Please provide either --seeds or --sequence along with --predictions');
     }

@@ -112,15 +112,80 @@ const nextRand = predictor.predictNext();
 predict-v8-randomness --predictions 5 --seeds 5
 ```
 
+### Output
+
+```
+{
+  generatedSequence: [
+    0.5139286738985778,
+    0.535630644299117,
+    0.2565664402819767,
+    0.6489416875705203,
+    0.8757185971484749
+  ],
+  predictions: [
+    0.7849264810770431,
+    0.8594975419545863,
+    0.9809480830582897,
+    0.981554014754481,
+    0.8598441911286285
+  ],
+  actual: [
+    0.7849264810770431,
+    0.8594975419545863,
+    0.9809480830582897,
+    0.981554014754481,
+    0.8598441911286285
+  ],
+  isCorrect: true
+}
+```
+
 ## Provide Your Own Seed Sequence
 
 - In the command below
   - We will predict 5 future Math.random() outputs
   - You provide your own initial sequence
 
+Generate sequence via Node REPL
+
+![pic_placeholder]()
+
 ```bash
-predict-v8-randomness --predictions 5 --sequence n, n, n, n
+predict-v8-randomness --predictions 5 --sequence \
+0.7092287773233545 \
+0.1160849838240845 \
+0.03743560691248082 \
+0.34682790046533585 \
+0.658721801819429
 ```
+
+### Output
+
+```
+{
+  sequence: [
+    0.7092287773233545,
+    0.1160849838240845,
+    0.03743560691248082,
+    0.34682790046533585,
+    0.658721801819429
+  ],
+  predictions: [
+    0.8366651713286275,
+    0.43993318735923603,
+    0.1313853892841912,
+    0.9753514121066957,
+    0.6235246991525747
+  ],
+  actual: "You'll need to get this yourself via the same way you generated the sequence"
+}
+```
+
+### Actual Next `Math.random()` Values
+
+![actual_pholder]()
+
 
 # Demos
 
