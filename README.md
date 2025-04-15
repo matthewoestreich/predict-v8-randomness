@@ -9,7 +9,7 @@ A huge shout-out to [PwnFunction](https://github.com/PwnFunction/v8-randomness-p
 Check out live demos here!
 
 - [Node Demos](#node-demos)
-- [CLI Demos](#cli-demos)
+- [CLI Demos](#cli)
 
 # Install
 
@@ -149,7 +149,7 @@ predict-v8-randomness --predictions 5 --seeds 5
 
 Generate sequence via Node REPL
 
-![pic_placeholder]()
+<img width="638" alt="generate-sequence-for-cli" src="https://github.com/user-attachments/assets/3b7d68a7-57cc-466b-812c-88417539ed57" />
 
 ```bash
 predict-v8-randomness --predictions 5 --sequence \
@@ -184,8 +184,9 @@ predict-v8-randomness --predictions 5 --sequence \
 
 ### Actual Next `Math.random()` Values
 
-![actual_pholder]()
+Compare to `predictions` from Output above...
 
+<img width="638" alt="actual-next-values-for-cli" src="https://github.com/user-attachments/assets/f0926be3-7682-48a9-85e4-92574692746b" />
 
 # Demos
 
