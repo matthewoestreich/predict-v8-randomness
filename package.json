@@ -1,6 +1,6 @@
 {
   "name": "predict-v8-randomness",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Predict the output of Math.random",
   "main": "dist/cjs/lib/index.js",
   "module": "dist/esm/PredictV8Randomness.js",
