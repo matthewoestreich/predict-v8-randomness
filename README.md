@@ -101,7 +101,7 @@ const nextRand = predictor.predictNext();
 # CLI
 
  - You either need to install this package globally or manually path to the "bin" in order to use the CLI
-     - Install globally : `npm i predict-v8-randomness`
+     - Install globally : `npm i predict-v8-randomness --global`
        - `> predict-v8-randomness --predictions 5 --seeds 5`
      - Path to "bin" (in a project that has this package installed)
        - `> node_modules/.bin/predict-v8-randomness --predictions 5 --seeds 5`
