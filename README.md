@@ -2,68 +2,116 @@
 
 A huge shout-out to [PwnFunction](https://github.com/PwnFunction/v8-randomness-predictor) for the inspiration!
 
-Uses [`z3`](https://github.com/Z3Prover/z3) to predict the output of `Math.random()` in [V8](https://v8.dev/) (the JS engine that Chrome/NodeJS use) via Node or command line.
+`predict-v8-randomness` uses [`z3`](https://github.com/Z3Prover/z3) to predict the output of `Math.random()` in [V8](https://v8.dev/) (the JS engine that Chrome/NodeJS use) via Node or CLI.
 
 # Install
 
 ```
 npm i predict-v8-randomness
+yarn add predict-v8-randomness
 ```
 
 # Node
 
+ - **IMPORTANT** : When providing your own sequence, **THE ORDER OF THE RANDOM NUMBERS IS IMPORTANT**! The first generated value needs to be at index 0, and so forth.
+ - If you generate your `Math.random()` numbers in a REPL, you need to keep that REPL open as if you close it the entropy pool for that sequence will be lost and you won't be able to validate our predictions with that current sequence
+
+## CJS
+
 ```js
-const { PredictV8Randomness } = require("predict-v8-randomness");
-// or ES6
-import { PredictV8Randomness } from "predict-v8-randomness";
+const predictV8Randomness = require("predict-v8-randomness");
+const predictor = new predictV8Randomness.Predictor(...);
+// or
+const { Predictor } = require("predict-v8-randomness");
+const predictor = new Predictor(...);
 ```
+
+## ESM
+
+```js
+import predictV8Randomness from "predict-v8-randomness";
+const predictor = new predictV8Randomness.Predictor(...);
+// or
+import { Predictor } from "predict-v8-randomness";
+const predictor = new Predictor(...);
+```
+
+# Creating Random Numbers
 
 ## Dynamic Seed Sequence
 
-```js
-// Let us dynamically create initial sequence (seed)
-const predictor = new PredictV8Randomness(5); 
-// Predict next Math.random() output
-const nextRand = predictor.predictNext();
-// Since we dynamically created the sequence in this "session" we can check live
-// if our prediction is accurate.
-console.log("Accurate?", nextRand === Math.random());
+ - We dynamically create initial sequence (seed) of random numbers
+ - This has the benefit of being able to validate/verify our predictions in real time, in one place
 
+### Predict Next
+
+```js
+// Create a seed sequence with 5 random numbers.
+const predictor = new Predictor(5); 
+// Predict next Math.random() output.
+const nextRand = predictor.predictNext();
+// Validate prediction right now, right here, in real time.
+console.log("Accurate?", nextRand === Math.random());
+```
+
+### Predict the Future
+
+Continuing from the code snippet above...
+
+```js
 // Predict next 10 Math.random() outputs
 const nextTenRand = predictor.predictFuture(10);
 const actuals = Array.from({ length: 10 }, Math.random);
 console.log("Accurate?", nextTenRand.every((e, i) => actuals[i] === e));
 ```
 
-## Provide Seed Sequence
+## Provide Your Own Seed Sequence
+
+ - You can create random numbers via Node REPL (or however you want to create them using `Math.random()`)
+ - To create "N" random numbers, open Node REPL and do :
+    - `console.log(Array.from({ length: N }, Math.random))`
+    - Then copy and paste output into script
+ - **DO NOT CLOSE REPL** or the process used
+     - You want to keep the process open that generated your initial sequence
+     - Otherwise we lose the entropy pool that was used to generate your sequence
+     - And thus lose the ability to validate our predictions
 
 ```js
-// You can create random numbers via Node REPL
-// Open Node REPL and do `console.log(Array.from({ length: N }, Math.random))`
-// Then copy and paste into script
-// DO NOT CLOSE REPL, it must remain open so the Node entropy pool doesn't change
-const initialSequence = [
-  // Paste REPL output here
-];
-const predictor = new PredictV8Randomness(initialSequence);
+const initialSequence = // Paste REPL output here
+const predictor = new Predictor(initialSequence);
+// You'll need to compare `nextRand` with whatever the next `Math.random()` value
+// is from REPL (or whatever you're using)
 const nextRand = predictor.predictNext();
-// This is where you have to go back to the REPL and do : `Math.random()`
-// Does what you got match with `nextRand`?
 ```
+
+### Accuracy
+
+ - Then to check accuracy, you have to go back to the REPL and do : 
+    - `Math.random()` 
+      - If you did `predictor.predictFuture(N)` then you'll need to run `Math.random()` in the REPL "N" times to validate our predictions
+    - Does what you got match with `nextRand` from the script above?
 
 # CLI
 
- - `--seed` and `--sequence` are mutually exclusive
+ - `--seeds` and `--sequence` are mutually exclusive
+
+## Dynamic Seed Sequence
+
+- In the command below
+  - We will predict 5 future Math.random() outputs
+  - We dynamically create the initial sequence seed with 5 random numbers
 
 ```bash
-predict-v8-randomness --predictions 5 --seed 5
-# We will predict 5 future Math.random() outputs
-# We dynamically create the initial sequence with 5 items
+predict-v8-randomness --predictions 5 --seeds 5
 ```
 
+## Provide Your Own Seed Sequence
+
+- In the command below
+  - We will predict 5 future Math.random() outputs
+  - You provide your own initial sequence
+
 ```bash
-predict-v8-randomness --predictions 5 --sequence 1,2,3,4
-# We will predict 5 future Math.random() outputs
-# We provided our own initial sequence (pretend they are random numbers from Math.random())
+predict-v8-randomness --predictions 5 --sequence n, n, n, n
 ```
 
