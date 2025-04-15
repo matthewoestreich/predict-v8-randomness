@@ -10,7 +10,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc --project tsconfig.json"
   },
-  "keywords": [],
+  "keywords": [
+    "v8",
+    "math.random",
+    "predict",
+    "z3",
+    "cli",
+    "symbolic-execution",
+    "smt"
+  ],
   "author": "Matthew Oestreich",
   "license": "MIT",
   "dependencies": {
