@@ -10,5 +10,5 @@
     "moduleResolution": "nodenext"
   },
   "include": ["./src/lib/**/*"],
-  "exclude": ["node_modules/", "./src/bin/**/*", "./src/lib/test.ts"]
+  "exclude": ["node_modules/", "./src/bin/**/*", "./src/lib/test.ts", "./src/lib/index.ts"]
 }
