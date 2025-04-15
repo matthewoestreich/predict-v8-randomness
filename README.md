@@ -6,7 +6,10 @@ A huge shout-out to [PwnFunction](https://github.com/PwnFunction/v8-randomness-p
 
 # TLDR
 
-[Check out demos here](#Demos)
+Check out live demos here!
+
+- [Node Demos](#node-demos)
+- [CLI Demos](#cli-demos)
 
 # Install
 
@@ -121,7 +124,7 @@ predict-v8-randomness --predictions 5 --sequence n, n, n, n
 
 # Demos
 
-## Node
+## Node Demos
 
 ### Dynamically Seed Sequence
 
@@ -131,6 +134,6 @@ https://github.com/user-attachments/assets/a80ce0d6-2c60-40c9-b7b2-2afa4bdde508
 
 https://github.com/user-attachments/assets/05527da9-89c0-4d81-afff-4665c60b6691
 
-## CLI
+## CLI Demos
 
 Coming soon!
