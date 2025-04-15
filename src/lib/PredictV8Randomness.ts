@@ -53,20 +53,6 @@ export default class PredictV8Randomness {
 		return (BigInt(float64.readUInt32LE(4)) << 32n) | BigInt(float64.readUInt32LE(0));
 	}
 
-  /**
-   * Extract mantissa
-   * - Add `1.0` (+ 0x3FF0000000000000) to 52 bits
-   * - Get the double and Subtract `1` to obtain the random number between [0, 1)
-   *
-   * > https://github.com/v8/v8/blob/a9f802859bc31e57037b7c293ce8008542ca03d8/src/base/utils/random-number-generator.h#L111
-   *
-   * static inline double ToDouble(uint64_t state0) {
-   *     // Exponent for double values for [1.0 .. 2.0)
-   *     static const uint64_t kExponentBits = uint64_t{0x3FF0000000000000};
-   *     uint64_t random = (state0 >> 12) | kExponentBits;
-   *     return base::bit_cast<double>(random) - 1;
-   * }
-   */
   private toDouble(n: bigint): number {
 		const random = (n >> 12n) | 0x3ff0000000000000n;
 		const buffer = Buffer.allocUnsafe(8);
@@ -74,24 +60,6 @@ export default class PredictV8Randomness {
 		return buffer.readDoubleLE(0) - 1;
   }
 
-	/**
-	 * XorShift128+
-	 * > https://vigna.di.unimi.it/ftp/papers/xorshiftplus.pdf
-	 * > https://github.com/v8/v8/blob/a9f802859bc31e57037b7c293ce8008542ca03d8/src/base/utils/random-number-generator.h#L119
-	 *
-	 * class V8_BASE_EXPORT RandomNumberGenerator final {
-	 *     static inline void XorShift128(uint64_t* state0, uint64_t* state1) {
-	 *         uint64_t s1 = *state0;
-	 *         uint64_t s0 = *state1;
-	 *         *state0 = s0;
-	 *         s1 ^= s1 << 23;
-	 *         s1 ^= s1 >> 17;
-	 *         s1 ^= s0;
-	 *         s1 ^= s0 >> 26;
-	 *         *state1 = s1;
-	 *     }
-	 * }
-	 */
 	private xorShift128Plus(state0: z3.BitVec, state1: z3.BitVec) {
 		let s1 = state0;
 		let s0 = state1;
@@ -133,3 +101,16 @@ export default class PredictV8Randomness {
     return this.toDouble(state0);
 	}
 }
+
+async function main() {
+  const seq = Array.from({length:5}, Math.random);
+  const predictor = new PredictV8Randomness(seq);
+  const nexts = await predictor.predictFuture(10);
+  const actuals = Array.from({length:10}, Math.random);
+  console.log({
+    seq: predictor.sequence,
+    nexts,
+    actuals
+  })
+}
+main()
