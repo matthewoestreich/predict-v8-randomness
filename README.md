@@ -4,6 +4,10 @@ A huge shout-out to [PwnFunction](https://github.com/PwnFunction/v8-randomness-p
 
 `predict-v8-randomness` uses [`z3`](https://github.com/Z3Prover/z3) to predict the output of `Math.random()` in [V8](https://v8.dev/) (the JS engine that Chrome/NodeJS use) via Node or CLI.
 
+# TLDR
+
+[Check out demos here](#Demos)
+
 # Install
 
 ```
@@ -115,3 +119,18 @@ predict-v8-randomness --predictions 5 --seeds 5
 predict-v8-randomness --predictions 5 --sequence n, n, n, n
 ```
 
+# Demos
+
+## Node
+
+### Dynamic Seed Sequence
+
+![dynamically_generated_sequence](.github/gifs/dynamically-generated-sequence.gif)
+
+### Provide Your Own Seed Sequence
+
+![user_provided_sequence](.github/gifs/user-provided-sequence.gif)
+
+## CLI
+
+Coming soon!
