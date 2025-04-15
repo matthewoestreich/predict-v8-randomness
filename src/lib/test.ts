@@ -1,4 +1,4 @@
-import PredictV8Randomness from "./PredictV8Randomness";
+import {PredictV8Randomness} from "./PredictV8Randomness";
 
 async function main() {
 	const seed = Array.from({ length: 5 }, Math.random);

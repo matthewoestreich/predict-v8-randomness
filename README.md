@@ -13,9 +13,9 @@ npm i predict-v8-randomness
 # Node
 
 ```js
-const PredictV8Randomness = require("predict-v8-randomness");
+const { PredictV8Randomness } = require("predict-v8-randomness");
 // or ES6
-import PredictV8Randomness from "predict-v8-randomness";
+import { PredictV8Randomness } from "predict-v8-randomness";
 ```
 
 ## Dynamic Seed Sequence

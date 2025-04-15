@@ -2,9 +2,9 @@
   "name": "predict-v8-randomness",
   "version": "1.0.15",
   "description": "Predict the output of Math.random",
-  "main": "dist/cjs/lib/index.js",
+  "main": "dist/cjs/lib/PredictV8Randomness.js",
   "module": "dist/esm/PredictV8Randomness.js",
-  "types": "dist/cjs/lib/index.d.ts",
+  "types": "dist/cjs/lib/PredictV8Randomness.d.ts",
   "typesVersions": {
     "*": {
       "index": [
@@ -14,15 +14,14 @@
   },
   "exports": {
     "import": "./dist/esm/PredictV8Randomness.js",
-    "require": "./dist/cjs/lib/index.js"
+    "require": "./dist/cjs/lib/PredictV8Randomness.js"
   },
   "bin": {
     "predict-v8-randomness": "./dist/cjs/bin/predict-v8-randomness.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf dist && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json && npm run cp:indexdts",
-    "cp:indexdts": "cp src/lib/index.d.ts dist/cjs/lib/"
+    "build": "rimraf dist && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json"
   },
   "keywords": [
     "v8",

@@ -2,7 +2,7 @@
 
 import yargs, { Arguments, CommandModule } from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import PredictV8Randomness from "../lib/PredictV8Randomness";
+import { PredictV8Randomness } from "../lib/PredictV8Randomness";
 
 interface PredictArgs extends Arguments {
   seeds?: number;

@@ -1,6 +1,6 @@
 import * as z3 from "z3-solver";
 
-export default class PredictV8Randomness {
+export class PredictV8Randomness {
 	#seState0: z3.BitVec | undefined;
 	#seState1: z3.BitVec | undefined;
 	#solver: z3.Solver | undefined;
