@@ -1,11 +1,11 @@
 import * as z3 from "z3-solver";
 
 export default class PredictV8Randomness {
-	private seState0: z3.BitVec;
-	private seState1: z3.BitVec;
-	private solver: z3.Solver;
-	private context: z3.Context;
-  private internalSequence: number[];
+	private seState0: z3.BitVec | undefined;
+	private seState1: z3.BitVec | undefined;
+	private solver: z3.Solver | undefined;
+	private context: z3.Context | undefined;
+  private internalSequence: number[] = [];
 
 	public sequence: number[] = [];
 	public seedCount: number = 0;
@@ -16,9 +16,6 @@ export default class PredictV8Randomness {
 	constructor(arg1: number[] | number) {
 		// User provided their own sequence.
 		if (Array.isArray(arg1)) {
-      if (arg1.length < 4) {
-        throw new Error(`We need at least 4 items to be accurate! Got ${arg1.length} items`)
-      }
       this.seedCount = arg1.length;
 			this.internalSequence = arg1;
 		}
@@ -27,6 +24,10 @@ export default class PredictV8Randomness {
 			this.seedCount = arg1;
 			this.internalSequence = Array.from({ length: this.seedCount }, Math.random);
 		}
+    // In order to solve the Math.random 'algo' we need at least 4 items.
+    if (this.internalSequence.length < 4) {
+      throw new Error(`We need at least 4 items to be accurate! Got ${this.internalSequence.length} items`)
+    }
 		this.sequence = [...this.internalSequence]; 
     this.internalSequence.reverse();
 	}
@@ -34,9 +35,7 @@ export default class PredictV8Randomness {
   public async predictFuture(n: number) {
 		const future: number[] = [];
 		for (let i = 0; i < n; i++) {
-			const next = await this.predict();
-			future.push(next);
-			this.internalSequence.unshift(next);
+			future.push(await this.predictNext());
 		}
 		return future;
 	}
@@ -94,23 +93,12 @@ export default class PredictV8Randomness {
 
 		const states = {};
 		for (const state of model.decls()) {
+      // @ts-ignore
 			states[state.name()] = model.get(state);
 		}
 
+    // @ts-ignore
 		const state0 = states["se_state0"].value(); // BigInt
     return this.toDouble(state0);
 	}
 }
-
-async function main() {
-  const seq = Array.from({length:5}, Math.random);
-  const predictor = new PredictV8Randomness(seq);
-  const nexts = await predictor.predictFuture(10);
-  const actuals = Array.from({length:10}, Math.random);
-  console.log({
-    seq: predictor.sequence,
-    nexts,
-    actuals
-  })
-}
-main()
