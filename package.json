@@ -6,6 +6,7 @@
   "bin": {
     "predict-v8-randomness": "./dist/bin/predict-v8-randomness.js"
   },
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc --project tsconfig.json"
