@@ -4,8 +4,9 @@
     "module": "ESNext",
     "outDir": "./dist/esm",
     "rootDir": "./src/lib",
+    "allowJs": false,
     "declaration": true,
   },
   "include": ["./src/lib/**/*"],
-  "exclude": ["node_modules/", "./src/bin/**/*", "./src/lib/test.ts", "./src/lib/index.ts"]
+  "exclude": ["node_modules/", "./src/bin/**/*", "./src/lib/test.ts"]
 }

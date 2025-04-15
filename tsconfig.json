@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2015",
     "module": "CommonJS",
     "moduleResolution": "node",
     "lib": ["DOM", "es5"],
@@ -8,6 +8,7 @@
     "outDir": "./dist/cjs",  // Compiled output will go to the root-level bin folder
     "rootDir": "./src",  // Root directory for source files (includes both bin and lib)
     "esModuleInterop": true,
+    "declaration": true,
     "skipLibCheck": true,
     "strict": true,
     "baseUrl": "./",  // Use base URL from the root of src
