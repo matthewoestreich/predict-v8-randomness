@@ -2,19 +2,12 @@
   "name": "predict-v8-randomness",
   "version": "1.0.17",
   "description": "Predict the output of Math.random",
-  "main": "dist/cjs/lib/PredictV8Randomness.js",
-  "module": "dist/esm/PredictV8Randomness.js",
-  "types": "dist/cjs/lib/PredictV8Randomness.d.ts",
-  "typesVersions": {
-    "*": {
-      "index": [
-        "dist/esm/PredictV8Randomness.d.ts"
-      ]
-    }
-  },
+  "main": "dist/cjs/lib/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/cjs/lib/Predictor.d.ts",
   "exports": {
-    "import": "./dist/esm/PredictV8Randomness.js",
-    "require": "./dist/cjs/lib/PredictV8Randomness.js"
+    "import": "./dist/esm/index.js",
+    "require": "./dist/cjs/lib/index.js"
   },
   "bin": {
     "predict-v8-randomness": "./dist/cjs/bin/predict-v8-randomness.js"
