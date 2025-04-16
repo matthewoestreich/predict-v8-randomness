@@ -20,8 +20,8 @@ yarn add predict-v8-randomness
 
 # Node
 
- - **IMPORTANT** : When providing your own sequence, **THE ORDER OF THE RANDOM NUMBERS IS IMPORTANT**! The first generated value needs to be at index 0, and so forth.
- - If you generate your `Math.random()` numbers in a REPL, you need to keep that REPL open as if you close it the entropy pool for that sequence will be lost and you won't be able to validate our predictions with that current sequence
+- **IMPORTANT** : When providing your own sequence, **THE ORDER OF THE RANDOM NUMBERS IS IMPORTANT**! The first generated value needs to be at index 0, and so forth.
+- If you generate your `Math.random()` numbers in a REPL, you need to keep that REPL open as if you close it the entropy pool for that sequence will be lost and you won't be able to validate our predictions with that current sequence
 
 ## CJS
 
@@ -47,14 +47,14 @@ const predictor = new Predictor(...);
 
 ## Dynamic Seed Sequence
 
- - We dynamically create initial sequence (seed) of random numbers
- - This has the benefit of being able to validate/verify our predictions in real time, in one place
+- We dynamically create initial sequence (seed) of random numbers
+- This has the benefit of being able to validate/verify our predictions in real time, in one place
 
 ### Predict Next
 
 ```js
 // Create a seed sequence with 5 random numbers.
-const predictor = new Predictor(5); 
+const predictor = new Predictor(5);
 // Predict next Math.random() output.
 const nextRand = predictor.predictNext();
 // Validate prediction right now, right here, in real time.
@@ -69,19 +69,22 @@ Continuing from the code snippet above...
 // Predict next 10 Math.random() outputs
 const nextTenRand = predictor.predictFuture(10);
 const actuals = Array.from({ length: 10 }, Math.random);
-console.log("Accurate?", nextTenRand.every((e, i) => actuals[i] === e));
+console.log(
+  "Accurate?",
+  nextTenRand.every((e, i) => actuals[i] === e),
+);
 ```
 
 ## Provide Your Own Seed Sequence
 
- - You can create random numbers via Node REPL (or however you want to create them using `Math.random()`)
- - To create "N" random numbers, open Node REPL and do :
-    - `console.log(Array.from({ length: N }, Math.random))`
-    - Then copy and paste output into script
- - **DO NOT CLOSE REPL** or the process used
-     - You want to keep the process open that generated your initial sequence
-     - Otherwise we lose the entropy pool that was used to generate your sequence
-     - And thus lose the ability to validate our predictions
+- You can create random numbers via Node REPL (or however you want to create them using `Math.random()`)
+- To create "N" random numbers, open Node REPL and do :
+  - `console.log(Array.from({ length: N }, Math.random))`
+  - Then copy and paste output into script
+- **DO NOT CLOSE REPL** or the process used
+  - You want to keep the process open that generated your initial sequence
+  - Otherwise we lose the entropy pool that was used to generate your sequence
+  - And thus lose the ability to validate our predictions
 
 ```js
 const initialSequence = // Paste REPL output here
@@ -93,22 +96,22 @@ const nextRand = predictor.predictNext();
 
 ### Accuracy
 
- - Then to check accuracy, you have to go back to the REPL and do : 
-    - `Math.random()` 
-      - If you did `predictor.predictFuture(N)` then you'll need to run `Math.random()` in the REPL "N" times to validate our predictions
-    - Does what you got match with `nextRand` from the script above?
+- Then to check accuracy, you have to go back to the REPL and do :
+  - `Math.random()`
+    - If you did `predictor.predictFuture(N)` then you'll need to run `Math.random()` in the REPL "N" times to validate our predictions
+  - Does what you got match with `nextRand` from the script above?
 
 # CLI
 
- - You either need to use `npx`, install this package globally, or manually path to the "bin" in order to use the CLI
-    - **Via `npx`** : 
-      - `> npx predict-v8-randomness --predictions 5 --seeds 5`
-     - **Install globally** : 
-       - `> npm i predict-v8-randomness --global`
-       - `> predict-v8-randomness --predictions 5 --seeds 5`
-     - **Path to "bin"** (in a project that has this package installed)
-       - `> node_modules/.bin/predict-v8-randomness --predictions 5 --seeds 5`
- - `--seeds` and `--sequence` are mutually exclusive
+- You either need to use `npx`, install this package globally, or manually path to the "bin" in order to use the CLI
+  - **Via `npx`** :
+    - `> npx predict-v8-randomness --predictions 5 --seeds 5`
+  - **Install globally** :
+    - `> npm i predict-v8-randomness --global`
+    - `> predict-v8-randomness --predictions 5 --seeds 5`
+  - **Path to "bin"** (in a project that has this package installed)
+    - `> node_modules/.bin/predict-v8-randomness --predictions 5 --seeds 5`
+- `--seeds` and `--sequence` are mutually exclusive
 
 ## Dynamic Seed Sequence
 

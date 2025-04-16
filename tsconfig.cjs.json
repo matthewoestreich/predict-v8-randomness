@@ -7,15 +7,15 @@
     "lib": ["DOM", "es5"],
     "allowJs": true,
     "declaration": true,
-    "outDir": "./dist/cjs",  // Compiled output will go to the root-level bin folder
-    "rootDir": "./src",  // Root directory for source files (includes both bin and lib)
+    "outDir": "./dist/cjs",
+    "rootDir": "./src" 
   },
   "include": [
-    "src/bin/**/*",  // Include all files from src/bin
-    "src/lib/**/*"   // Include all files from src/lib
+    "src/bin/**/*", 
+    "src/lib/**/*"
   ],
   "exclude": [
-    "node_modules",  // Exclude node_modules folder
-    "src/lib/test.ts"
+    "node_modules",
+    "**/*.test.*"
   ]
 }

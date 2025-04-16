@@ -13,8 +13,10 @@
     "predict-v8-randomness": "./dist/cjs/bin/predict-v8-randomness.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf dist && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json"
+    "build": "rimraf dist && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
+    "test": "jest --verbose",
+    "fmt": "prettier . --write",
+    "prepare": "husky"
   },
   "keywords": [
     "v8",
@@ -41,8 +43,12 @@
     "z3-solver": "^4.14.1"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/yargs": "^17.0.33",
+    "husky": "^9.1.7",
+    "jest": "^29.7.0",
     "rimraf": "^6.0.1",
+    "ts-jest": "^29.3.2",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3"
   }
