@@ -11,8 +11,15 @@ A huge shout-out to [PwnFunction](https://github.com/PwnFunction/v8-randomness-p
 
 # Install
 
+#### npm
+
 ```
 npm i predict-v8-randomness
+```
+
+#### yarn
+
+```
 yarn add predict-v8-randomness
 ```
 
