@@ -25,9 +25,9 @@ yarn add predict-v8-randomness
 
 ---
 
-# Node
+Use with CommonJS or ESM
 
-### CJS
+#### CJS
 
 ```js
 const predictV8Randomness = require("predict-v8-randomness");
@@ -37,7 +37,7 @@ const { Predictor } = require("predict-v8-randomness");
 const predictor = new Predictor(...);
 ```
 
-### ESM
+#### ESM
 
 ```js
 import predictV8Randomness from "predict-v8-randomness";
@@ -47,7 +47,7 @@ import { Predictor } from "predict-v8-randomness";
 const predictor = new Predictor(...);
 ```
 
-## Usage
+# Usage
 
 #### Dynamically Generated Sequence
 
@@ -94,15 +94,15 @@ You can use the following methods to run as CLI
 | Global `npm`       | <ul><li><code>> npm i -G predict-v8-randomness</code></li><li> <code>> predict-v8-randomness [args]</code></li></ul> | Can run from any terminal on your machine     |
 | Local Project Path | `> node_modules/.bin/predict-v8-randomness [args]`                                                                   | In a project that has this paackage installed |
 
-## Dynamically Generated Sequence
+#### Dynamically Generated Sequence
 
-#### Command
+##### Command
 
 ```bash
 predict-v8-randomness --predictions 5 --seeds 5
 ```
 
-#### Output
+##### Output
 
 ```
 {
@@ -131,15 +131,15 @@ predict-v8-randomness --predictions 5 --seeds 5
 }
 ```
 
-## Provide Your Own Sequence
+#### Provide Your Own Sequence
 
-#### Create Sequence
+##### Create Sequence
 
 Generate sequence via Node REPL (among other ways):
 
 <img width="638" alt="generate-sequence-for-cli" src="https://github.com/user-attachments/assets/3b7d68a7-57cc-466b-812c-88417539ed57" />
 
-#### Command
+##### Command
 
 Using our generated sequence from Node REPL as `--sequence`
 
@@ -152,7 +152,7 @@ predict-v8-randomness --predictions 5 --sequence \
 0.658721801819429
 ```
 
-#### Output
+##### Output
 
 ```
 {
@@ -174,7 +174,7 @@ predict-v8-randomness --predictions 5 --sequence \
 }
 ```
 
-#### Validation
+##### Validation
 
 Generate actual random numbers and compare to `predictions` above:
 
@@ -184,12 +184,12 @@ Generate actual random numbers and compare to `predictions` above:
 
 # Demos
 
-## Node Demos
+#### Node Demos
 
-#### Dynamically Generate Sequence
+##### Dynamically Generate Sequence
 
 https://github.com/user-attachments/assets/a80ce0d6-2c60-40c9-b7b2-2afa4bdde508
 
-#### Provide Your Own Sequence
+##### Provide Your Own Sequence
 
 https://github.com/user-attachments/assets/521b69d9-672f-43b9-ab09-6b968c361668
