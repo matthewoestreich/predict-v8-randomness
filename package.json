@@ -12,6 +12,7 @@
   "bin": {
     "predict-v8-randomness": "./dist/cjs/bin/predict-v8-randomness.js"
   },
+  "files": ["dist"],
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
     "test": "jest --verbose",
