@@ -47,24 +47,19 @@ import { Predictor } from "predict-v8-randomness";
 const predictor = new Predictor(...);
 ```
 
-## Examples
+## Usage
 
-### Predict Next
+#### Dynamically Generated Sequence
 
 ```js
-// Create a seed sequence with 5 random numbers.
+// Dynamiccally generate sequence of 5 random numbers
 const predictor = new Predictor(5);
+
 // Predict next Math.random() output.
 const nextRand = predictor.predictNext();
 // Validate prediction right now, right here, in real time.
 console.log("Accurate?", nextRand === Math.random());
-```
 
-### Predict the Future
-
-Continuing from the code snippet above...
-
-```js
 // Predict next 10 Math.random() outputs
 const nextTenRand = predictor.predictFuture(10);
 const actuals = Array.from({ length: 10 }, Math.random);
@@ -74,21 +69,18 @@ console.log(
 );
 ```
 
-### Provide Your Own Seed Sequence
+#### Provide Your Own Seed Sequence
+
+See [Demos](#demos) for a more in-depth explanation.
 
 ```js
 const initialSequence = [
-  /* Paste REPL output here */
+  /* Your sequence here */
 ];
 const predictor = new Predictor(initialSequence);
-// You'll need to compare `nextRand` with whatever the next `Math.random()` value
-// is from REPL (or whatever you're using)
 const nextRand = predictor.predictNext();
+const futureN = predictor.predictFuture(N);
 ```
-
-#### Validation
-
-Then to validate our predictions, you have to go back to the REPL and do : `Math.random()`
 
 ---
 
