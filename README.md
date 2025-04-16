@@ -2,14 +2,12 @@
 
 A huge shout-out to [PwnFunction](https://github.com/PwnFunction/v8-randomness-predictor) for the inspiration!
 
-`predict-v8-randomness` uses [`z3`](https://github.com/Z3Prover/z3), which is a [satisfiability modulo theories](https://en.wikipedia.org/wiki/Satisfiability_modulo_theories) (SMT) solver developed by Microsoft, to predict the output of `Math.random()` in [V8](https://v8.dev/), which is the JS engine that Chrome/NodeJS use, from Node or from CLI
-
-# TLDR
-
-Check out live demos here!
+`predict-v8-randomness` uses [`z3`](https://github.com/Z3Prover/z3) — a [Satisfiability Modulo Theories](https://en.wikipedia.org/wiki/Satisfiability_modulo_theories) (SMT) solver developed by Microsoft — to predict the output of `Math.random()` in [V8](https://v8.dev/), the JavaScript engine used by Chrome and Node.js.
 
 - [Node Demos](#node-demos)
 - [CLI Demos](#cli)
+
+---
 
 # Install
 
@@ -18,12 +16,11 @@ npm i predict-v8-randomness
 yarn add predict-v8-randomness
 ```
 
+---
+
 # Node
 
-- **IMPORTANT** : When providing your own sequence, **THE ORDER OF THE RANDOM NUMBERS IS IMPORTANT**! The first generated value needs to be at index 0, and so forth.
-- If you generate your `Math.random()` numbers in a REPL, you need to keep that REPL open as if you close it the entropy pool for that sequence will be lost and you won't be able to validate our predictions with that current sequence
-
-## CJS
+### CJS
 
 ```js
 const predictV8Randomness = require("predict-v8-randomness");
@@ -33,7 +30,7 @@ const { Predictor } = require("predict-v8-randomness");
 const predictor = new Predictor(...);
 ```
 
-## ESM
+### ESM
 
 ```js
 import predictV8Randomness from "predict-v8-randomness";
@@ -43,12 +40,7 @@ import { Predictor } from "predict-v8-randomness";
 const predictor = new Predictor(...);
 ```
 
-# Creating Random Numbers
-
-## Dynamic Seed Sequence
-
-- We dynamically create initial sequence (seed) of random numbers
-- This has the benefit of being able to validate/verify our predictions in real time, in one place
+## Examples
 
 ### Predict Next
 
@@ -75,55 +67,43 @@ console.log(
 );
 ```
 
-## Provide Your Own Seed Sequence
-
-- You can create random numbers via Node REPL (or however you want to create them using `Math.random()`)
-- To create "N" random numbers, open Node REPL and do :
-  - `console.log(Array.from({ length: N }, Math.random))`
-  - Then copy and paste output into script
-- **DO NOT CLOSE REPL** or the process used
-  - You want to keep the process open that generated your initial sequence
-  - Otherwise we lose the entropy pool that was used to generate your sequence
-  - And thus lose the ability to validate our predictions
+### Provide Your Own Seed Sequence
 
 ```js
-const initialSequence = // Paste REPL output here
+const initialSequence = [
+  /* Paste REPL output here */
+];
 const predictor = new Predictor(initialSequence);
 // You'll need to compare `nextRand` with whatever the next `Math.random()` value
 // is from REPL (or whatever you're using)
 const nextRand = predictor.predictNext();
 ```
 
-### Accuracy
+#### Validation
 
-- Then to check accuracy, you have to go back to the REPL and do :
-  - `Math.random()`
-    - If you did `predictor.predictFuture(N)` then you'll need to run `Math.random()` in the REPL "N" times to validate our predictions
-  - Does what you got match with `nextRand` from the script above?
+Then to validate our predictions, you have to go back to the REPL and do : `Math.random()`
+
+---
 
 # CLI
 
-- You either need to use `npx`, install this package globally, or manually path to the "bin" in order to use the CLI
-  - **Via `npx`** :
-    - `> npx predict-v8-randomness --predictions 5 --seeds 5`
-  - **Install globally** :
-    - `> npm i predict-v8-randomness --global`
-    - `> predict-v8-randomness --predictions 5 --seeds 5`
-  - **Path to "bin"** (in a project that has this package installed)
-    - `> node_modules/.bin/predict-v8-randomness --predictions 5 --seeds 5`
-- `--seeds` and `--sequence` are mutually exclusive
+You can use the following methods to run as CLI
 
-## Dynamic Seed Sequence
+| Method             | Instructions                                                                                                         | Info                                          |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| `npx`              | `> npx predict-v8-randomness [args]`                                                                                 | Probably the simplest method                  |
+| Global `npm`       | <ul><li><code>> npm i -G predict-v8-randomness</code></li><li> <code>> predict-v8-randomness [args]</code></li></ul> | Can run from any terminal on your machine     |
+| Local Project Path | `> node_modules/.bin/predict-v8-randomness [args]`                                                                   | In a project that has this paackage installed |
 
-- In the command below
-  - We will predict 5 future Math.random() outputs
-  - We dynamically create the initial sequence seed with 5 random numbers
+## Dynamically Generated Sequence
+
+#### Command
 
 ```bash
 predict-v8-randomness --predictions 5 --seeds 5
 ```
 
-### Output
+#### Output
 
 ```
 {
@@ -152,15 +132,17 @@ predict-v8-randomness --predictions 5 --seeds 5
 }
 ```
 
-## Provide Your Own Seed Sequence
+## Provide Your Own Sequence
 
-- In the command below
-  - We will predict 5 future Math.random() outputs
-  - You provide your own initial sequence
+#### Create Sequence
 
-Generate sequence via Node REPL
+Generate sequence via Node REPL (among other ways):
 
 <img width="638" alt="generate-sequence-for-cli" src="https://github.com/user-attachments/assets/3b7d68a7-57cc-466b-812c-88417539ed57" />
+
+#### Command
+
+Using our generated sequence from Node REPL as `--sequence`
 
 ```bash
 predict-v8-randomness --predictions 5 --sequence \
@@ -171,7 +153,7 @@ predict-v8-randomness --predictions 5 --sequence \
 0.658721801819429
 ```
 
-### Output
+#### Output
 
 ```
 {
@@ -193,24 +175,22 @@ predict-v8-randomness --predictions 5 --sequence \
 }
 ```
 
-### Actual Next `Math.random()` Values
+#### Validation
 
-Compare to `predictions` from Output above...
+Generate actual random numbers and compare to `predictions` above:
 
 <img width="638" alt="actual-next-values-for-cli" src="https://github.com/user-attachments/assets/f0926be3-7682-48a9-85e4-92574692746b" />
+
+---
 
 # Demos
 
 ## Node Demos
 
-### Dynamically Seed Sequence
+#### Dynamically Generate Sequence
 
 https://github.com/user-attachments/assets/a80ce0d6-2c60-40c9-b7b2-2afa4bdde508
 
-### Provide Your Own Seed Sequence
+#### Provide Your Own Sequence
 
 https://github.com/user-attachments/assets/521b69d9-672f-43b9-ab09-6b968c361668
-
-## CLI Demos
-
-Coming soon!
