@@ -1,6 +1,6 @@
 {
   "name": "predict-v8-randomness",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "Predict the output of Math.random",
   "main": "dist/cjs/lib/index.js",
   "module": "dist/esm/index.js",
@@ -12,7 +12,9 @@
   "bin": {
     "predict-v8-randomness": "./dist/cjs/bin/predict-v8-randomness.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
     "test": "jest --verbose",
