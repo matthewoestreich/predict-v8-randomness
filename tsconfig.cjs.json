@@ -8,14 +8,8 @@
     "allowJs": true,
     "declaration": true,
     "outDir": "./dist/cjs",
-    "rootDir": "./src" 
+    "rootDir": "./src"
   },
-  "include": [
-    "src/bin/**/*", 
-    "src/lib/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.test.*"
-  ]
+  "include": ["src/bin/**/*", "src/lib/**/*"],
+  "exclude": ["node_modules", "**/*.test.*"]
 }

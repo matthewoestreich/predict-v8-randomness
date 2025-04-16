@@ -9,5 +9,5 @@
       "@bin/*": ["bin/*"] // Optionally allow imports from bin using @bin/
     },
     "types": ["node", "jest"]
-  },
+  }
 }
