@@ -9,17 +9,21 @@ export default defineConfig({
       targets: [
         {
           src: "node_modules/z3-solver/build/*",
-          dest: "", 
+          dest: "", // Relative to `build.outDir`.
+        },
+        {
+          src: "./src/umd/coi.serviceworker.js",
+          dest: "", // Relative to `build.outDir`.
         },
       ],
     }),
   ],
   build: {
     lib: {
-      entry: path.resolve(__dirname, "./src/lib/index.umd.ts"), 
+      entry: path.resolve(__dirname, "./src/umd/index.ts"),
       name: "PredictV8Randomness",
-      formats: ["umd"], 
-      fileName: () => "predict-v8-randomness.js", 
+      formats: ["umd"],
+      fileName: () => "predict-v8-randomness.js",
     },
     outDir: "dist/umd",
     emptyOutDir: true,
