@@ -16,7 +16,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "rimraf dist && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
+    "build": "rimraf dist && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json && vite build",
+    "build:vite": "vite build",
     "test": "jest --verbose",
     "fmt": "prettier . --write",
     "prepare": "husky"
@@ -53,6 +54,7 @@
     "rimraf": "^6.0.1",
     "ts-jest": "^29.3.2",
     "tsx": "^4.19.3",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vite": "^6.3.1"
   }
 }
