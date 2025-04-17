@@ -16,7 +16,7 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: path.resolve(__dirname, "./src/lib/index.ts"), 
+      entry: path.resolve(__dirname, "./src/lib/index.umd.ts"), 
       name: "PredictV8Randomness",
       formats: ["umd"], 
       fileName: () => "predict-v8-randomness.js", 
