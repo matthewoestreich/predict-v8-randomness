@@ -51,18 +51,27 @@ const predictor = new Predictor(...);
 
 #### Dynamically Generated Sequence
 
-```js
-// Dynamiccally generate sequence of 5 random numbers
-const predictor = new Predictor(5);
+For every 10 predictions it takes ~3 seconds to compute, so be mindful of performance. A good rule of thumb is : seconds to compute = (number of predictions / 3).
 
-// Predict next Math.random() output.
-const nextRand = predictor.predictNext();
+```js
+// If no parameters are provided, we generate the sequence dynamically
+const predictor = new Predictor();
+
+// We always return an array of predictions. If you are only predicting 
+// one item (no param provided to `predictNext`) you can destructure 
+// the return for simplicity.
+
+// Predict next Math.random() output. Destructure return.
+const [nextRand] = predictor.predictNext();
+// is equivalent to:
+const [nextRand] = predictor.predictNext(1);
 // Validate prediction right now, right here, in real time.
 console.log("Accurate?", nextRand === Math.random());
 
 // Predict next 10 Math.random() outputs
-const nextTenRand = predictor.predictFuture(10);
+const nextTenRand = predictor.predictNext(10);
 const actuals = Array.from({ length: 10 }, Math.random);
+// Validate those 10
 console.log(
   "Accurate?",
   nextTenRand.every((e, i) => actuals[i] === e),
@@ -71,6 +80,8 @@ console.log(
 
 #### Provide Your Own Seed Sequence
 
+The provided sequence must contain at least 4 elements. Anything fewer will cause prediction accuracy to drop.
+
 See [Demos](#demos) for a more in-depth explanation.
 
 ```js
@@ -78,8 +89,8 @@ const initialSequence = [
   /* Your sequence here */
 ];
 const predictor = new Predictor(initialSequence);
-const nextRand = predictor.predictNext();
-const futureN = predictor.predictFuture(N);
+const [nextRand] = predictor.predictNext();
+const futureN = predictor.predictNext(N);
 ```
 
 ---

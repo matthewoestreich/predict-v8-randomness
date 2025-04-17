@@ -1,15 +1,14 @@
 import { Predictor } from "../lib";
 
 export interface PredictArgs {
-  seeds?: number;
   sequence?: number[];
   predictions: number;
 }
 
 export async function runPredictor(argv: PredictArgs) {
-  if (argv.seeds) {
-    const dynamicPredictor = new Predictor(argv.seeds);
-    const predictions = await dynamicPredictor.predictFuture(argv.predictions);
+  if (!argv.sequence) {
+    const dynamicPredictor = new Predictor();
+    const predictions = await dynamicPredictor.predictNext(argv.predictions);
     const actual = Array.from({ length: argv.predictions }, Math.random);
     return {
       mode: "seeds",
@@ -22,7 +21,7 @@ export async function runPredictor(argv: PredictArgs) {
 
   if (argv.sequence) {
     const userPredictor = new Predictor(argv.sequence);
-    const future = await userPredictor.predictFuture(argv.predictions);
+    const future = await userPredictor.predictNext(argv.predictions);
     return {
       mode: "sequence",
       sequence: userPredictor.sequence,

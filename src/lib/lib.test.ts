@@ -1,15 +1,15 @@
 import { Predictor } from "./index";
 
 describe("Lib (Node) : Dynamically Generated Sequence", () => {
-  const dynamicPredictor = new Predictor(5);
+  const dynamicPredictor = new Predictor();
 
   it("should predict the next random number", async () => {
-    const nextPrediction = await dynamicPredictor.predictNext();
+    const [nextPrediction] = await dynamicPredictor.predictNext();
     expect(nextPrediction).toEqual(Math.random());
   });
 
   it("should predict the next 5 random numbers", async () => {
-    const nextFive = await dynamicPredictor.predictFuture(5);
+    const nextFive = await dynamicPredictor.predictNext(5);
     const actualFive = Array.from({ length: 5 }, Math.random);
     expect(nextFive).toEqual(actualFive);
   });
@@ -25,12 +25,12 @@ describe("Lib (Node) : User Provided Sequence", () => {
   const providedPredictor = new Predictor(USER_PROVIDED_SEQUENCE);
 
   it("should predict the next random number", async () => {
-    const nextPrediction = await providedPredictor.predictNext();
+    const [nextPrediction] = await providedPredictor.predictNext();
     expect(nextPrediction).toEqual(EXPECTED_NEXT_NUMBER);
   });
 
   it("should predict the next five random numbers", async () => {
-    const nextFive = await providedPredictor.predictFuture(5);
+    const nextFive = await providedPredictor.predictNext(5);
     expect(nextFive).toEqual(EXPECTED_NEXT_FIVE_NUMBERS);
   });
 });

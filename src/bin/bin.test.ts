@@ -2,7 +2,7 @@ import { runPredictor } from "./runPredictor";
 
 describe("Bin (CLI) : Dynamically Generated Sequence", () => {
   it("should predict the next five random numbers", async () => {
-    const result = await runPredictor({ seeds: 5, predictions: 5 });
+    const result = await runPredictor({ predictions: 5 });
     expect(result.mode).toBe("seeds");
     expect(result.predictions).toEqual(result.actual);
   });
@@ -17,11 +17,5 @@ describe("Bin (CLI) : User Provided Sequence", () => {
     const result = await runPredictor({ sequence: USER_PROVIDED_SEQUENCE, predictions: 5 });
     expect(result.mode).toBe("sequence");
     expect(result.predictions).toEqual(EXPECTED_NEXT_FIVE_NUMBERS);
-  });
-});
-
-describe("Bin (CLI) : yargs functionality", () => {
-  it("should throw if neither seeds nor sequence is provided", async () => {
-    await expect(runPredictor({ predictions: 5 } as any)).rejects.toThrow(/provide either --seeds or --sequence/);
   });
 });
