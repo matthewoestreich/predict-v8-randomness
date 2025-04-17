@@ -4,9 +4,6 @@ A huge shout-out to [PwnFunction](https://github.com/PwnFunction/v8-randomness-p
 
 `predict-v8-randomness` uses [`z3`](https://github.com/Z3Prover/z3) — a [Satisfiability Modulo Theories](https://en.wikipedia.org/wiki/Satisfiability_modulo_theories) (SMT) solver developed by Microsoft — to predict the output of `Math.random()` in [V8](https://v8.dev/), the JavaScript engine used by Chrome and Node.js.
 
-- [Node Demos](#node-demos)
-- [CLI Demos](#cli)
-
 ---
 
 # Install
@@ -49,10 +46,9 @@ const predictor = new Predictor(...);
 
 # Usage
 
-- For every 10 predictions it takes ~3 seconds to compute, so be mindful of performance when predicting large amounts.
-  - A good rule of thumb is : seconds to compute = (number of predictions / 3).
-- We always return an array of predictions (`number[]`).
-  - If you are only predicting one item (no param provided to `predictNext`) you can destructure the return for simplicity.
+For every 10 predictions it takes ~3 seconds to compute, so be mindful of performance when predicting large amounts. Keep in mind, the max we can predict next is 60.
+
+We always return an array of predictions (`number[]`). If you are only predicting one item you can destructure the return for simplicity.
 
 #### Dynamically Generated Sequence
 
@@ -79,16 +75,16 @@ console.log(
 
 #### Provide Your Own Seed Sequence
 
-The provided sequence must contain at least 4 elements. Anything fewer will cause prediction accuracy to drop.
-
-See [Demos](#demos) for a more in-depth explanation.
+The provided sequence must contain **_EXACTLY_** 4 numbers. Anything other than 4 and we lose prediction accuracy.
 
 ```js
 const initialSequence = [
   /* Your sequence here */
+  /* HAS to be 4 numbers */
 ];
 const predictor = new Predictor(initialSequence);
 const [nextRand] = predictor.predictNext();
+// Where N <= 60 && N > 0
 const futureN = predictor.predictNext(N);
 ```
 
@@ -109,7 +105,7 @@ You can use the following methods to run as CLI
 ##### Command
 
 ```bash
-predict-v8-randomness --predictions 5 --seeds 5
+predict-v8-randomness --predictions 5
 ```
 
 ##### Output
@@ -117,33 +113,30 @@ predict-v8-randomness --predictions 5 --seeds 5
 ```
 {
   generatedSequence: [
-    0.5139286738985778,
-    0.535630644299117,
-    0.2565664402819767,
-    0.6489416875705203,
-    0.8757185971484749
+    0.3408102678742442,
+    0.08789933352314194,
+    0.03272179228873395,
+    0.4842101806240975
   ],
   predictions: [
-    0.7849264810770431,
-    0.8594975419545863,
-    0.9809480830582897,
-    0.981554014754481,
-    0.8598441911286285
+    0.18459229023584944,
+    0.00115362787609663,
+    0.2168134565216322,
+    0.4505911192744063,
+    0.0861285118521693
   ],
   actual: [
-    0.7849264810770431,
-    0.8594975419545863,
-    0.9809480830582897,
-    0.981554014754481,
-    0.8598441911286285
+    0.18459229023584944,
+    0.00115362787609663,
+    0.2168134565216322,
+    0.4505911192744063,
+    0.0861285118521693
   ],
   isCorrect: true
 }
 ```
 
 #### Provide Your Own Sequence
-
-##### Create Sequence
 
 Generate sequence via Node REPL (among other ways):
 
@@ -155,11 +148,10 @@ Using our generated sequence from Node REPL as `--sequence`
 
 ```bash
 predict-v8-randomness --predictions 5 --sequence \
-0.7092287773233545 \
-0.1160849838240845 \
-0.03743560691248082 \
-0.34682790046533585 \
-0.658721801819429
+0.7491279279338094 \
+0.44015510494242127 \
+0.7346597255565754 \
+0.36002618846830314
 ```
 
 ##### Output
@@ -167,21 +159,21 @@ predict-v8-randomness --predictions 5 --sequence \
 ```
 {
   sequence: [
-    0.7092287773233545,
-    0.1160849838240845,
-    0.03743560691248082,
-    0.34682790046533585,
-    0.658721801819429
+    0.7491279279338094,
+    0.44015510494242127,
+    0.7346597255565754,
+    0.36002618846830314
   ],
   predictions: [
-    0.8366651713286275,
-    0.43993318735923603,
-    0.1313853892841912,
-    0.9753514121066957,
-    0.6235246991525747
+    0.6959327841483642,
+    0.04084705024171864,
+    0.16434259075016922,
+    0.8110024854456912,
+    0.023498283488221583
   ],
   actual: "You'll need to get this yourself via the same way you generated the sequence"
 }
+
 ```
 
 ##### Validation
@@ -189,17 +181,3 @@ predict-v8-randomness --predictions 5 --sequence \
 Generate actual random numbers and compare to `predictions` above:
 
 <img width="638" alt="actual-next-values-for-cli" src="https://github.com/user-attachments/assets/f0926be3-7682-48a9-85e4-92574692746b" />
-
----
-
-# Demos
-
-#### Node Demos
-
-##### Dynamically Generate Sequence
-
-https://github.com/user-attachments/assets/a80ce0d6-2c60-40c9-b7b2-2afa4bdde508
-
-##### Provide Your Own Sequence
-
-https://github.com/user-attachments/assets/521b69d9-672f-43b9-ab09-6b968c361668
