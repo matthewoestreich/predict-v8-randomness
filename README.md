@@ -49,7 +49,10 @@ const predictor = new Predictor(...);
 
 # Usage
 
-We always return an array of predictions. If you are only predicting one item (no param provided to `predictNext`) you can destructure the return for simplicity.
+- For every 10 predictions it takes ~3 seconds to compute, so be mindful of performance when predicting large amounts.
+  - A good rule of thumb is : seconds to compute = (number of predictions / 3).
+- We always return an array of predictions (`number[]`).
+  - If you are only predicting one item (no param provided to `predictNext`) you can destructure the return for simplicity.
 
 #### Dynamically Generated Sequence
 
@@ -75,8 +78,6 @@ console.log(
 ```
 
 #### Provide Your Own Seed Sequence
-
-For every 10 predictions it takes ~3 seconds to compute, so be mindful of performance. A good rule of thumb is : seconds to compute = (number of predictions / 3).
 
 The provided sequence must contain at least 4 elements. Anything fewer will cause prediction accuracy to drop.
 
