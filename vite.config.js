@@ -1,16 +1,27 @@
 // vite.config.ts
 import { defineConfig } from "vite";
 import path from "path";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
+  plugins: [
+    viteStaticCopy({
+      targets: [
+        {
+          src: "node_modules/z3-solver/build/*",
+          dest: "", 
+        },
+      ],
+    }),
+  ],
   build: {
     lib: {
-      entry: path.resolve(__dirname, "./src/lib/index.ts"), // Path to your main TypeScript file
+      entry: path.resolve(__dirname, "./src/lib/index.ts"), 
       name: "PredictV8Randomness",
-      formats: ["umd"], // Output format: immediately invoked function expression (for browser)
-      fileName: () => "predict-v8-randomness.js", // Output file name
+      formats: ["umd"], 
+      fileName: () => "predict-v8-randomness.js", 
     },
-    outDir: "dist/umd", // Output directory for the bundle
-    emptyOutDir: true, // Ensure the output directory is empty before each build
+    outDir: "dist/umd",
+    emptyOutDir: true,
   },
 });
