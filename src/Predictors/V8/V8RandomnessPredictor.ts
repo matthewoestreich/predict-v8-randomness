@@ -1,6 +1,6 @@
 import * as z3 from "z3-solver";
 
-class Predictor {
+class V8RandomnessPredictor {
   // In my testing, I discovered we need at least 4 items in order to predict correctly.
   #MIN_SEQUENCE_LENGTH = 4;
   // Due to the way V8 generates the pool of random numbers, we lose accuracy when the
@@ -138,4 +138,4 @@ class Predictor {
   }
 }
 
-export default Predictor;
+export default V8RandomnessPredictor;

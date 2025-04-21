@@ -1,4 +1,4 @@
-import Predictor from "./Predictor";
+import V8RandomnessPredictor from "../Predictors/V8/V8RandomnessPredictor";
 
-export default { Predictor };
-export { Predictor };
+export default { V8RandomnessPredictor };
+export { V8RandomnessPredictor };

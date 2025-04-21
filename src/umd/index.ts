@@ -1,10 +1,10 @@
 /**
  * Shim so we can use this in the browser.
  */
-import Predictor from "../lib/Predictor";
+import PredictorFactory from "./PredictorFactory";
 import { Buffer } from "buffer";
 
-export default { Predictor };
-export { Predictor };
+export default { PredictorFactory };
+export { PredictorFactory };
 
 window.Buffer = Buffer;
