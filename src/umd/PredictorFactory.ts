@@ -15,7 +15,7 @@ export default class PredictorFactory {
         return this;
       }
       default: {
-        throw new Error("Unrecognized predictor!")
+        throw new Error("Unrecognized predictor!");
       }
     }
   }

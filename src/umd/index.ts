@@ -5,12 +5,9 @@ import PredictorFactory from "./PredictorFactory";
 import { Buffer } from "buffer";
 
 export default { PredictorFactory };
-export { 
-  PredictorFactory
-};
+export { PredictorFactory };
 
 window.Buffer = Buffer;
-
 
 /**
  * Shim so we can use this in the browser.
