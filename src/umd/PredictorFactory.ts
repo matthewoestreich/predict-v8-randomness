@@ -1,4 +1,5 @@
 import FirefoxRandomnessPredictor from "../Predictors/Firefox/FirefoxRandomnessPredictor";
+import ChromeRandomnessPredictor from "../Predictors/Chrome/ChromeRandomnessPredictor";
 
 export default class PredictorFactory {
   private constructor() {}
@@ -9,7 +10,7 @@ export default class PredictorFactory {
         return await FirefoxRandomnessPredictor.create(sequence);
       }
       case "Chrome": {
-        return this;
+        return await ChromeRandomnessPredictor.create(sequence);
       }
       case "Safari": {
         return this;

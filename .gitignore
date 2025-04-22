@@ -1,6 +1,8 @@
 _tst.ts
 original.ts
 
+.vscode
+
 # Logs
 logs
 *.log

@@ -3,10 +3,10 @@ import * as z3 from "z3-solver";
 class FirefoxRandomnessPredictor {
   #isUnsat = false;
   #mask = 0xffffffffffffffffn;
-  #seState0Name = "se_state0";
-  #seState1Name = "se_state1";
   #seState0: z3.BitVec | undefined;
   #seState1: z3.BitVec | undefined;
+  #s0Ref: z3.BitVec | undefined;
+  #s1Ref: z3.BitVec | undefined;
   #solver: z3.Solver | undefined;
   #context: z3.Context | undefined;
   #concreteState0 = 0n;
@@ -44,8 +44,10 @@ class FirefoxRandomnessPredictor {
       const { Context } = await z3.init();
       self.#context = Context("main");
       self.#solver = new self.#context.Solver();
-      self.#seState0 = self.#context.BitVec.const(self.#seState0Name, 64);
-      self.#seState1 = self.#context.BitVec.const(self.#seState1Name, 64);
+      self.#seState0 = self.#context.BitVec.const("se_state0", 64);
+      self.#seState1 = self.#context.BitVec.const("se_state1", 64);
+      self.#s0Ref = self.#seState0;
+      self.#s1Ref = self.#seState1;
 
       for (let i = 0; i < self.sequence.length; i++) {
         self.#xorShift128PlusSymbolic();
@@ -61,8 +63,8 @@ class FirefoxRandomnessPredictor {
       }
 
       const model = self.#solver.model();
-      self.#concreteState0 = (model.get(self.#context.BitVec.const(self.#seState0Name, 64)) as z3.BitVecNum).value();
-      self.#concreteState1 = (model.get(self.#context.BitVec.const(self.#seState1Name, 64)) as z3.BitVecNum).value();
+      self.#concreteState0 = (model.get(self.#s0Ref) as z3.BitVecNum).value();
+      self.#concreteState1 = (model.get(self.#s1Ref) as z3.BitVecNum).value();
 
       // We have to get our concrete state up to the same point as our symbolic state,
       // therefore, we discard as many "predictNext()" calls as we have `self.sequence.length`
