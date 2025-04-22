@@ -1,7 +1,7 @@
-import { Predictor } from "./index";
+import V8RandomnessPredictor from "../Predictors/V8/V8RandomnessPredictor";
 
 describe("Lib (Node) : Dynamically Generated Sequence", () => {
-  const dynamicPredictor = new Predictor();
+  const dynamicPredictor = new V8RandomnessPredictor();
 
   it("should predict the next random number", async () => {
     const [nextPrediction] = await dynamicPredictor.predictNext();
@@ -20,7 +20,7 @@ describe("Lib (Node) : User Provided Sequence", () => {
   const EXPECTED_NEXT_NUMBER = 0.8853110028441145;
   const EXPECTED_NEXT_FIVE_NUMBERS = [0.14326940888839124, 0.035607792006009165, 0.6491231376351401, 0.3345277284146617, 0.42618019812863417];
 
-  const providedPredictor = new Predictor(USER_PROVIDED_SEQUENCE);
+  const providedPredictor = new V8RandomnessPredictor(USER_PROVIDED_SEQUENCE);
 
   it("should predict the next random number", async () => {
     const [nextPrediction] = await providedPredictor.predictNext();

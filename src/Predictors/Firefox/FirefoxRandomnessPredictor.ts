@@ -12,7 +12,7 @@ class FirefoxRandomnessPredictor {
   #concreteState0 = 0n;
   #concreteState1 = 0n;
 
-  public sequence: number[] = [];
+  sequence: number[] = [];
 
   // Mimic static class
   private constructor() {}
@@ -46,32 +46,31 @@ class FirefoxRandomnessPredictor {
       self.#solver = new self.#context.Solver();
       self.#seState0 = self.#context.BitVec.const(self.#seState0Name, 64);
       self.#seState1 = self.#context.BitVec.const(self.#seState1Name, 64);
-
+  
       for (let i = 0; i < self.sequence.length; i++) {
         self.#xorShift128PlusSymbolic();
         const mantissa = self.#recoverMantissa(self.sequence[i]);
         const state = self.#seState0.add(self.#seState1).and(self.#context!.BitVec.val(0x1fffffffffffff, 64));
         self.#solver.add(state.eq(self.#context.BitVec.val(mantissa, 64)));
       }
-
+  
       const check = await self.#solver.check();
       if (check !== "sat") {
         self.#isUnsat = true;
         return self;
       }
-
+  
       const model = self.#solver.model();
       self.#concreteState0 = (model.get(self.#context.BitVec.const(self.#seState0Name, 64)) as z3.BitVecNum).value();
       self.#concreteState1 = (model.get(self.#context.BitVec.const(self.#seState1Name, 64)) as z3.BitVecNum).value();
-
+  
       // We have to get our concrete state up to the same point as our symbolic state,
-      // therefore, we discard as many "predictNext()" calls as we have `this.sequence.length`
+      // therefore, we discard as many "predictNext()" calls as we have `self.sequence.length`
       // Otherwise, we would return random numbers to the caller that they already have.
       // Now, when we return from predictNext() we get the actual next.
       for (let i = 0; i < self.sequence.length; i++) {
         self.predictNext();
       }
-
       return Promise.resolve(self);
     } catch (e) {
       return Promise.reject(e);

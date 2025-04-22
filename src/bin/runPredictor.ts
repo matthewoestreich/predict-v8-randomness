@@ -1,4 +1,4 @@
-import { Predictor } from "../lib";
+import V8RandomnessPredictor from "../Predictors/V8/V8RandomnessPredictor";
 
 export interface PredictArgs {
   sequence?: number[];
@@ -7,7 +7,7 @@ export interface PredictArgs {
 
 export async function runPredictor(argv: PredictArgs) {
   if (!argv.sequence) {
-    const dynamicPredictor = new Predictor();
+    const dynamicPredictor = new V8RandomnessPredictor();
     const predictions = await dynamicPredictor.predictNext(argv.predictions);
     const actual = Array.from({ length: argv.predictions }, Math.random);
     return {
@@ -20,7 +20,7 @@ export async function runPredictor(argv: PredictArgs) {
   }
 
   if (argv.sequence) {
-    const userPredictor = new Predictor(argv.sequence);
+    const userPredictor = new V8RandomnessPredictor(argv.sequence);
     const future = await userPredictor.predictNext(argv.predictions);
     return {
       mode: "sequence",

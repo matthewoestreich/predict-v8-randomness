@@ -4,10 +4,11 @@
     "target": "ESNext",
     "module": "NodeNext",
     "outDir": "./dist/esm",
-    "rootDir": "./src/lib",
+    "rootDir": "./src",
     "allowJs": false,
     "declaration": true,
-    "moduleResolution": "nodenext"
+    "moduleResolution": "nodenext",
+    "isolatedModules": true
   },
   "include": ["./src/lib/**/*"],
   "exclude": ["node_modules/", "./src/bin/**/*", "**/*.test.*", "./src/lib/_tst.ts"]

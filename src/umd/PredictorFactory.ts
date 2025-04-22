@@ -1,15 +1,17 @@
 import FirefoxRandomnessPredictor from "../Predictors/Firefox/FirefoxRandomnessPredictor";
 
 export default class PredictorFactory {
-  constructor(predictor: "firefox" | "chrome" | "safari", sequence: number[]) {
+  private constructor() {}
+
+  static async create(predictor: "Firefox" | "Chrome" | "Safari", sequence: number[]) {
     switch (predictor) {
-      case "firefox": {
-        return FirefoxRandomnessPredictor.create(sequence)
+      case "Firefox": {
+        return await FirefoxRandomnessPredictor.create(sequence);
       }
-      case "chrome": {
+      case "Chrome": {
         return this;
       }
-      case "safari": {
+      case "Safari": {
         return this;
       }
       default: {
