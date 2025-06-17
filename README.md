@@ -1,8 +1,18 @@
 # PLEASE USE THIS REPO INSTEAD
 
-[js-randomness-predictor](https://github.com/matthewoestreich/js-randomness-predictor)
+# [js-randomness-predictor](https://github.com/matthewoestreich/js-randomness-predictor)
+
+<br/></br>
 
 ---
+
+---
+
+---
+
+---
+
+<br/><br/>
 
 # predict-v8-randomness
 
