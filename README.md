@@ -1,3 +1,9 @@
+# PLEASE USE THIS REPO INSTEAD
+
+[js-randomness-predictor](https://github.com/matthewoestreich/js-randomness-predictor)
+
+---
+
 # predict-v8-randomness
 
 A huge shout-out to [PwnFunction](https://github.com/PwnFunction/v8-randomness-predictor) for the inspiration!
